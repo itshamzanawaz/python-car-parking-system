@@ -1,4 +1,4 @@
-import math
+
 # Constants for pricing
 weekday_pricing = {
     "sunday": {"morning_price": 2.00, "evening_price": 2.00},
@@ -63,7 +63,13 @@ def main():
         print("Invalid day of the week.")
         return
     arrival_hour = int(input("Enter the hour of arrival (0-23): "))
+    if arrival_hour < 0 or arrival_hour > 23:
+        print("Invalid hour of arrival.")
+        return
     hours = int(input("Enter the number of hours to park: "))
+    if hours < 1 or hours > 8:
+        print("Invalid number of hours.")
+        return
     check_frequent_parking_number = input("if you have a frequent parking number, enter y for yes or n for no: ")
     if check_frequent_parking_number == "y":
         frequent_parking_number = input("Enter frequent parking number: ")
@@ -76,7 +82,12 @@ def main():
     else:
         print(f"Amount to pay: ${price:.2f}")
         payment = float(input("Enter payment amount: "))
-        daily_total += payment
+        if payment < price:
+            print("Insufficient payment.")
+            return
+        daily_total += price
+        print(f"Total daily payment: ${daily_total:.2f}")
+        
 
     end_of_day_report()
 
